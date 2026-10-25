@@ -16,9 +16,11 @@ npm run build
 O resultado fica em `out/` (inclua o `.htaccess`).
 
 ## Publicar
-1. Compactar o conteúdo de `out/` em `rota-plena-public_html.zip`.
-2. Atualizar o branch `publicado` do repositório com o ZIP.
-3. Na Hostinger: puxar o repositório para a pasta `_deploy` do site e implantar o ZIP como site estático (substitui o conteúdo do `public_html`).
+1. Gerar o build e copiar o conteúdo de `out/` para o branch `publicado` (ele contém só o site pronto).
+2. Enviar o branch `publicado` ao GitHub.
+3. Na Hostinger, a pasta do site puxa esse branch ("Deploy website Git repository"); cada nova publicação é um "pull" do mesmo branch.
+
+O `.htaccess` (HTTPS, cache, página 404 e bloqueio de `/.git`) fica em `public/.htaccess` e entra automaticamente no build.
 
 ## Fora desta versão
 Login, área de membros, painel admin, diários privados e depoimentos com envio precisam de backend (PHP + MySQL no plano atual, ou Node.js nos planos Business/Cloud).
