@@ -93,7 +93,7 @@ export default function MapExplorer({ compact = false }: { compact?: boolean }) 
     const initialQuery = new URLSearchParams(window.location.search).get("busca");
     if (initialQuery) window.setTimeout(() => setQuery(initialQuery), 0);
     Promise.all([
-      fetch("/pontos-da-rota.csv").then((response) => response.text()),
+      fetch("/lugares-visitados.csv").then((response) => response.text()),
       Promise.resolve({ places: [] as Array<Record<string, unknown>> }),
     ]).then(([csv, cms]) => {
       const parsed = Papa.parse<Place>(csv, { header: true, skipEmptyLines: true });
@@ -233,7 +233,7 @@ export default function MapExplorer({ compact = false }: { compact?: boolean }) 
           <div className="map-category-list">
             {experienceFilters.map((item) => <button key={item.id} className={category === item.id ? "active" : ""} onClick={() => setCategory(item.id)}><i className={`map-dot ${item.id}`} />{item.label}</button>)}
           </div>
-          <label className="visited-toggle"><input type="checkbox" checked={onlyVisited} onChange={(event) => setOnlyVisited(event.target.checked)} /> Somente locais já visitados</label>
+          <p className="visited-toggle">✓ Todos os lugares deste mapa foram visitados pelo Rota Plena.</p>
           <div className="map-result-count"><b>{filtered.length.toLocaleString("pt-BR")}</b><span>pontos encontrados na base Rota Plena</span></div>
           {filteredResult.expanded && <p className="map-search-note">Não havia correspondência exata. Exibimos os pontos da localidade principal.</p>}
           {places.length > 0 && filtered.length === 0 && <div className="map-empty-state" role="status"><b>Nenhum ponto encontrado com esses filtros.</b><p>Tente pesquisar somente pela cidade ou pelo bairro, ou remova um dos filtros selecionados.</p><button type="button" onClick={() => { setQuery(""); setCategory("todos"); setOnlyVisited(false); }}>Limpar busca e filtros</button></div>}
@@ -251,7 +251,7 @@ export default function MapExplorer({ compact = false }: { compact?: boolean }) 
         <span>{selected.bairro_distrito || selected.cidade || selected.endereco}{selected.uf ? ` · ${selected.uf}` : ""}</span>
         {selected.observacao && <p className="map-place-description">{selected.observacao}</p>}
         <div>
-          {selected.visitado === "SIM" && <b>✓ Visitado</b>}
+          {selected.visitado === "SIM" && <b>✓ Eu fui</b>}
           {selected.aceita_rv === "SIM" && <b>Aceita RV</b>}
           {selected.pet_friendly === "SIM" && <b>Pet friendly</b>}
           {selected.tem_energia === "SIM" && <b>Energia</b>}
@@ -270,7 +270,7 @@ export default function MapExplorer({ compact = false }: { compact?: boolean }) 
             : findSulMinasCity(selected.cidade)
               ? <a href={`/destinos/sul-de-minas#${findSulMinasCity(selected.cidade)!.slug}`}>Conhecer a cidade</a>
               : null}
-          <a href="mailto:admin@rotaplena.com.br?subject=Rota%20Plena%20-%20sugest%C3%A3o%20de%20atualiza%C3%A7%C3%A3o">Sugerir correção</a>
+          <a href="mailto:savio@rotaplena.com.br?subject=Rota%20Plena%20-%20sugest%C3%A3o%20de%20atualiza%C3%A7%C3%A3o">Sugerir correção</a>
           {selected.link_referencia?.startsWith("http") && <a href={selected.link_referencia} target="_blank" rel="noreferrer">Ver fonte</a>}
         </footer>
       </article>}

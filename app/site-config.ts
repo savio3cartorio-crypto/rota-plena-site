@@ -1,7 +1,9 @@
 export const SITE_URL = "https://rotaplena.com.br";
 export const SITE_NAME = "Rota Plena";
 export const SITE_DESCRIPTION =
-  "Portal brasileiro de apoio ao caravanismo, com rotas, campings, pontos de apoio, mapas, ferramentas, guias e comunidade.";
+  "Guia de quem quer começar a viver a estrada perto de casa, com o carro que já tem: car camping, lugares visitados no Vale do Paraíba, na Mantiqueira e no Litoral Norte, roteiros e relatos de Sávio Antonio Americano.";
+export const CONTACT_EMAIL = "savio@rotaplena.com.br";
+export const mailto = (subject: string) => `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(`Rota Plena - ${subject}`)}`;
 
 // O site é publicado com barra final (/mapa/), então as URLs canônicas seguem o mesmo padrão.
 export const absoluteUrl = (path = "/") => {

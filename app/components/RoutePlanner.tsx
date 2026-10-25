@@ -126,7 +126,7 @@ export default function RoutePlanner() {
       setStops(params.getAll("parada").slice(0, 6));
     }, 0);
 
-    fetch("/pontos-da-rota.csv")
+    fetch("/lugares-visitados.csv")
       .then((response) => response.text())
       .then((csv) => {
         const parsed = Papa.parse<SupportPlace>(csv, { header: true, skipEmptyLines: true });

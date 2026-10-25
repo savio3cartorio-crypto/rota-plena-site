@@ -1,4 +1,5 @@
 import routeCatalog from "./routes-catalog.json";
+import { roteirosPercorridos } from "./roteiros-percorridos";
 
 export type RoutePlace = {
   slug?: string | null;
@@ -61,6 +62,8 @@ export type CuratedRoute = {
 
 export const curatedRoutes = routeCatalog.routes as unknown as CuratedRoute[];
 export const routesUpdatedAt = routeCatalog.updatedAt;
+/** Roteiros publicados: apenas os já percorridos. */
+export const publishedRoutes = curatedRoutes.filter((route) => roteirosPercorridos.includes(route.slug));
 
 export const routeModuleLabel = (module: string) => {
   if (module.startsWith("SM_")) return "Sul de Minas";

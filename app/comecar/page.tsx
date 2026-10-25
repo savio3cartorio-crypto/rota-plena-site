@@ -1,10 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import { PortalPage } from "../components/PortalChrome";
+import { getPublishedArticles } from "../../db/cms";
+import { cronicaSlugs, primeirosPassosSlugs } from "../data/editorial";
 
 export const metadata: Metadata = {
-  title: "Comece por aqui | Rota Plena",
-  description: "Um caminho realista para começar no car camping com o carro atual, uma viagem curta e escolhas seguras.",
+  title: "Comece aqui: sua primeira viagem sobre rodas",
+  description: "Como fazer a primeira viagem de car camping com o carro que você já tem: plano em sete passos, o mínimo necessário e guias práticos.",
 };
 
 const essentials = [
@@ -16,7 +18,10 @@ const essentials = [
   ["Alternativa", "Tenha um plano B de pernoite e dinheiro reservado para retornar ou buscar hospedagem."],
 ];
 
-export default function StartPage() {
+export default async function StartPage() {
+  const articles = await getPublishedArticles();
+  const primeiros = primeirosPassosSlugs.map((slug) => articles.find((article) => article.slug === slug)).filter((article) => article !== undefined);
+  const motorhome = articles.filter((article) => !cronicaSlugs.includes(article.slug) && !primeirosPassosSlugs.includes(article.slug)).sort((a, b) => (a.series?.order ?? 99) - (b.series?.order ?? 99));
   return <PortalPage className="start-page">
     <section className="start-hero">
       <div><p className="eyebrow">COMECE SEM PRESSA</p><h1>A primeira viagem não precisa provar nada.</h1><p>Ela só precisa ser curta, segura e suficiente para você descobrir como se sente dormindo, cozinhando e vivendo por algumas horas com o carro como apoio.</p><nav><Link className="button button-primary" href="#plano">Ver o plano simples →</Link><Link className="button button-ghost" href="/blog/car-camping-liberdade-porta-malas">Entender o car camping</Link></nav></div>
@@ -46,9 +51,20 @@ export default function StartPage() {
       <div>{essentials.map(([title, copy]) => <article key={title}><span>✓</span><h3>{title}</h3><p>{copy}</p></article>)}</div>
     </section>
 
+
+    <section className="rp-section alt" id="guias">
+      <div className="portal-section-head"><div><p className="eyebrow dark">GUIAS PRÁTICOS</p><h2>Primeiros passos com o carro que você já tem.</h2><p>Leia antes da primeira saída. Tudo aqui parte da experiência real, sem lista de compras.</p></div></div>
+      <div className="rp-cards">{primeiros.map((article) => <Link className="rp-card" key={article.slug} href={`/blog/${article.slug}/`}><small>{article.category} · {article.reading}</small><h3>{article.title}</h3><p>{article.excerpt}</p><b>Ler o guia →</b></Link>)}</div>
+    </section>
+
+    <section className="rp-section">
+      <div className="portal-section-head"><div><p className="eyebrow dark">QUANDO O SONHO CRESCER</p><h2>Do carro ao motorhome, sem pressa.</h2><p>Uma série para quem já testou a estrada e começa a pensar em um veículo adaptado: escolha, layout, energia, água, custos e a primeira viagem-teste.</p></div></div>
+      <div className="rp-cards">{motorhome.map((article) => <Link className="rp-card" key={article.slug} href={`/blog/${article.slug}/`}><small>{article.series ? `Parte ${article.series.order} de ${article.series.total}` : article.category} · {article.reading}</small><h3>{article.title}</h3><p>{article.excerpt}</p><b>Ler →</b></Link>)}</div>
+    </section>
+
     <section className="start-territory" id="territorio">
       <div><p className="eyebrow dark">TERRITÓRIO-PILOTO</p><h2>Por que começamos perto de Taubaté?</h2><p>Porque proximidade permite conferir melhor, corrigir mais rápido e transformar informação em experiência real. Vale do Paraíba, Mantiqueira e Litoral Norte formam um laboratório natural diverso, com serra, costa, cidades históricas e serviços acessíveis por viagens curtas.</p></div>
-      <aside><Link href="/destinos/vale-do-paraiba"><b>Vale do Paraíba</b><span>Base, serviços e cultura →</span></Link><Link href="/destinos/sul-de-minas"><b>Mantiqueira</b><span>Serra, natureza e interior →</span></Link><Link href="/rotas/caragua-serra-mar"><b>Litoral Norte</b><span>Mar, acesso e sazonalidade →</span></Link></aside>
+      <aside><Link href="/destinos/vale-do-paraiba/"><b>Vale do Paraíba</b><span>Base, serviços e cultura →</span></Link><Link href="/destinos/sul-de-minas/"><b>Mantiqueira</b><span>Serra, natureza e interior →</span></Link><Link href="/destinos/"><b>Litoral Norte</b><span>Guia em preparação →</span></Link></aside>
     </section>
 
     <section className="start-next-action">

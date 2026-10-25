@@ -2,22 +2,28 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import RouteCatalog from "../components/RouteCatalog";
 import { PortalPage } from "../components/PortalChrome";
-import { curatedRoutes, routesUpdatedAt } from "../data/routes";
+import { getPublicDiaryEntries } from "../../db/diaries";
+import { publishedRoutes } from "../data/routes";
+import { mailto } from "../site-config";
 
 export const metadata: Metadata = {
-  title: "Rotas para caravanismo",
-  description: "Roteiros para caravanismo no Leste Paulista, Sul de Minas, Sul Fluminense e Litoral de São Paulo, com alertas, apoio e planejamento.",
+  title: "Roteiros percorridos",
+  description: "Roteiros de viagem sobre rodas publicados só depois de percorridos: trajeto real, tempo, custos, onde dormir e o que eu faria diferente.",
 };
 
-export default function RoutesPage() {
-  const withTechnicalScore = curatedRoutes.filter((route) => route.score !== null).length;
+export default async function RoutesPage() {
+  const diaries = await getPublicDiaryEntries();
+  const caraiva = [...diaries].sort((a, b) => (a.tripDate ?? "").localeCompare(b.tripDate ?? ""));
   return <PortalPage className="routes-portal-page">
     <section className="routes-hero">
-      <div><p className="eyebrow">BIBLIOTECA DE ROTAS</p><h1>Comece perto.<br /><em>Expanda quando estiver pronto.</em></h1><p>Na primeira fase, destacamos Vale do Paraíba, Mantiqueira e Litoral Norte. A biblioteca completa permanece disponível como pesquisa editorial — sempre com o nível de maturidade e as confirmações necessárias à vista.</p></div>
-      <aside><span><b>3</b> territórios prioritários</span><span><b>{curatedRoutes.length}</b> estudos na biblioteca</span><span><b>{withTechnicalScore}</b> análises técnicas</span></aside>
+      <div><p className="eyebrow">ROTEIROS</p><h1>Só publico o caminho<br /><em>que eu já fiz.</em></h1><p>Cada roteiro aqui foi percorrido de verdade: trajeto, tempo de estrada, onde dormir, quanto custou e o que eu faria diferente. Roteiros montados só no papel ficam guardados até serem testados na estrada.</p></div>
+      <aside><span><b>{1 + publishedRoutes.length}</b> {publishedRoutes.length ? "roteiros percorridos" : "roteiro percorrido"}</span><span><b>100%</b> com estrada real</span><span><b>0</b> roteiros de escritório</span></aside>
     </section>
-    <section className="route-phase-banner"><div><small>PRIMEIRA VIAGEM?</small><b>Use primeiro os roteiros do território-piloto.</b><span>Menor distância facilita confirmação, retorno e aprendizado.</span></div><nav><Link href="/rotas/caragua-serra-mar">Litoral Norte</Link><Link href="/rotas/mantiqueira-integrada">Mantiqueira</Link><Link href="/destinos/vale-do-paraiba">Vale do Paraíba</Link></nav></section>
-    <section className="route-transparency-band"><b>Transparência de estrada</b><p>“Planejamento” significa rota pesquisada, mas ainda não testada integralmente. “Com alertas” indica maior maturidade. “Em estudo” não deve ser executada como roteiro.</p><small>Base atualizada em {new Date(`${routesUpdatedAt}T12:00:00`).toLocaleDateString("pt-BR")}</small></section>
-    <RouteCatalog routes={curatedRoutes} />
+
+    <section className="route-phase-banner"><div><small>ROTEIRO PERCORRIDO · JANEIRO DE 2024</small><b>Taubaté → Vitória → Caraíva (BA)</b><span>Dois dias de estrada em família até a vila onde o rio encontra o mar, contados capítulo a capítulo no Diário de estrada.</span></div><nav>{caraiva.map((entry, index) => <Link key={entry.id} href={`/diarios/${entry.id}/`}>Dia {index + 1}</Link>)}</nav></section>
+
+    {publishedRoutes.length > 0
+      ? <RouteCatalog routes={publishedRoutes} />
+      : <section className="route-transparency-band"><b>Próximos roteiros</b><p>Os próximos roteiros do Vale do Paraíba, da Mantiqueira e do Litoral Norte entram aqui depois de cada saída de campo, com data da viagem e fotos próprias. Enquanto isso, use o planejador para montar a sua primeira viagem perto de casa.</p><small><Link href="/planejar/">Abrir o planejador →</Link> · <a href={mailto("sugestão de roteiro")}>Sugerir um roteiro para eu fazer →</a></small></section>}
   </PortalPage>;
 }

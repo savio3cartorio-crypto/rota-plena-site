@@ -1,22 +1,23 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import MapExplorer from "../components/MapExplorer";
 import { PortalPage } from "../components/PortalChrome";
-import Link from "next/link";
+import { mailto } from "../site-config";
 
 export const metadata: Metadata = {
-  title: "Mapa de campings e pontos de apoio",
-  description: "Explore campings, pernoites, natureza, cultura, alimentação, serviços e pontos de apoio para caravanismo no mapa Rota Plena.",
+  title: "Lugares por onde passei",
+  description: "Mapa dos lugares visitados pelo Rota Plena: cidades, parques, cachoeiras, mirantes, pontos de apoio e paradas reais de viagem.",
 };
 
 export default function MapaPage() {
   return <PortalPage className="map-page">
-    <section className="map-page-head"><div><p className="eyebrow dark">MAPA ROTA PLENA</p><h1>Campings, natureza, cultura e apoios para escolher melhor.</h1></div><div className="map-page-intro"><p>Pesquise pelo destino ou pelo tipo de experiência. Os dados são colaborativos e podem mudar; confirme condições, regras e disponibilidade antes de seguir.</p><Link href="/guia-do-mapa">Ainda não conhece o mapa? Veja o guia →</Link></div></section>
-    <section className="map-insight-strip" aria-label="Base cartográfica e rotas do Rota Plena">
-      <div><small>BASE MESTRE CONECTADA</small><b>Mapa + 77 roteiros</b><span>Leste Paulista, Sul de Minas, Sul Fluminense e todo o Litoral de São Paulo.</span></div>
-      <article><b>2.008</b><span>pontos ativos e geolocalizados</span></article>
-      <article><b>77</b><span>roteiros com página própria</span></article>
-      <article><b>4</b><span>grandes territórios conectados</span></article>
-      <nav className="map-guide-links"><Link href="/guia-do-mapa">Como usar o mapa →</Link><Link href="/rotas">Explorar rotas →</Link><Link href="/destinos/vale-do-paraiba">Guia do Vale →</Link><Link href="/destinos/sul-de-minas">Sul de Minas →</Link></nav>
+    <section className="map-page-head"><div><p className="eyebrow dark">SELO “EU FUI”</p><h1>Só entra neste mapa o lugar por onde eu passei.</h1></div><div className="map-page-intro"><p>Em vez de milhares de pontos copiados de outros guias, um mapa menor e honesto: cidades, parques, cachoeiras, mirantes e paradas que visitei. Condições mudam com o tempo; confirme funcionamento e acesso antes de seguir.</p><Link href="/destinos/">Ver os destinos da região →</Link></div></section>
+    <section className="map-insight-strip" aria-label="O que este mapa mostra">
+      <div><small>MAPA PESSOAL</small><b>Lugares visitados</b><span>Do Vale do Paraíba e da Mantiqueira a outras estradas do Brasil.</span></div>
+      <article><b>183</b><span>lugares com selo “eu fui”</span></article>
+      <article><b>0</b><span>pontos copiados de outros guias</span></article>
+      <article><b>1</b><span>pessoa conferindo tudo</span></article>
+      <nav className="map-guide-links"><Link href="/destinos/vale-do-paraiba/">Vale do Paraíba →</Link><Link href="/destinos/sul-de-minas/">Mantiqueira →</Link><Link href="/planejar/">Planejar uma viagem →</Link><a href={mailto("sugestão de lugar")}>Sugerir um lugar →</a></nav>
     </section>
     <MapExplorer />
   </PortalPage>;

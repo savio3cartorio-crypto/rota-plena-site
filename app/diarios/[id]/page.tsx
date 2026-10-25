@@ -33,10 +33,10 @@ export default async function PublicDiaryEntryPage({ params }: { params: Promise
   return <PortalPage className="public-diary-entry-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     <article className="public-diary-entry">
-      <header><Link href="/diarios">← Todos os diários públicos</Link><p className="eyebrow">DIÁRIO DE BORDO · CARAÍVA 2024</p><h1>{entry.title}</h1><div><span>{formatDate(entry.tripDate)}</span><span>{entry.location}</span><span>Por {entry.authorName}</span></div></header>
+      <header><Link href="/diario/">← Diário de estrada</Link><p className="eyebrow">DIÁRIO DE BORDO · CARAÍVA 2024</p><h1>{entry.title}</h1><div><span>{formatDate(entry.tripDate)}</span><span>{entry.location}</span><span>Por {entry.authorName}</span></div></header>
       <aside><b>Nota do autor</b><p>Este relato foi escrito em janeiro de 2024 como uma carta às minhas filhas. Para a publicação no Rota Plena, foram corrigidos apenas erros evidentes de digitação e organizadas as seções, preservando o sentido, a memória familiar e a reflexão original.</p></aside>
       <DiaryProse body={entry.body} />
-      <footer><span>Boa estrada. E que ela seja plena.</span><Link href="/diarios">Continuar no diário →</Link></footer>
+      <footer><span>Boa estrada. E que ela seja plena.</span><Link href="/diario/">Continuar no Diário de estrada →</Link></footer>
     </article>
     {related.length > 0 && <section className="public-diary-related"><header><p className="eyebrow dark">OUTROS DIAS DESTA VIAGEM</p><h2>Continue o caminho até Caraíva.</h2></header><div>{related.map((item) => <Link href={`/diarios/${item.id}`} key={item.id}><small>{formatDate(item.tripDate)}</small><h3>{item.title}</h3><b>Ler capítulo →</b></Link>)}</div></section>}
   </PortalPage>;

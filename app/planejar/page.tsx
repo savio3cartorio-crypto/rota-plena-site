@@ -21,7 +21,7 @@ export default function PlanejarPage() {
       </section>
       <nav className="route-region-shortcuts" aria-label="Rotas regionais sugeridas">
         <span>Inspire o destino:</span>
-        <Link href="/rotas">Explorar 77 roteiros</Link>
+        <Link href="/rotas/">Roteiros percorridos</Link>
         <a href="/planejar?origem=Taubaté%2C%20SP&destino=Itajubá%2C%20MG">Vale → Itajubá</a>
         <a href="/planejar?origem=Cruzeiro%2C%20SP&destino=Passa%20Quatro%2C%20MG">Cruzeiro → Passa Quatro</a>
         <a href="/planejar?origem=Taubaté%2C%20SP&destino=Gonçalves%2C%20MG">Vale → Gonçalves</a>

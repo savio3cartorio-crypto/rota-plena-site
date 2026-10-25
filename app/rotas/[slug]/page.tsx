@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { PortalPage } from "../../components/PortalChrome";
 import { RouteIllustratedMap } from "../../components/RouteIllustratedMap";
-import { curatedRoutes, findCuratedRoute, routeMaturity, routeModuleLabel } from "../../data/routes";
+import { publishedRoutes, routeMaturity, routeModuleLabel } from "../../data/routes";
+
+const findCuratedRoute = (slug: string) => publishedRoutes.find((route) => route.slug === slug);
 import { absoluteUrl } from "../../site-config";
 
 const dimensionLabels: Record<string, string> = {
@@ -38,14 +39,18 @@ const safeHost = (source: string) => {
   try { return new URL(source).hostname.replace(/^www\./, ""); } catch { return "Fonte da rota"; }
 };
 
+export const dynamicParams = false;
+
+// A exportação estática exige ao menos uma página; enquanto nenhum roteiro estiver publicado,
+// gera só /rotas/em-preparacao/ (fora do sitemap e com noindex).
 export function generateStaticParams() {
-  return curatedRoutes.map((route) => ({ slug: route.slug }));
+  return publishedRoutes.length ? publishedRoutes.map((route) => ({ slug: route.slug })) : [{ slug: "em-preparacao" }];
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const route = findCuratedRoute(slug);
-  if (!route) return {};
+  if (!route) return { title: "Roteiro em preparação", robots: { index: false, follow: true } };
   const url = absoluteUrl(`/rotas/${route.slug}`);
   return {
     title: route.title,
@@ -58,10 +63,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function RouteDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const route = findCuratedRoute(slug);
-  if (!route) notFound();
+  if (!route) return <PortalPage><section className="portal-page-hero"><div><p className="eyebrow">ROTEIROS</p><h1>Este roteiro ainda está sendo percorrido.</h1><p>Ele entra no ar depois da viagem, com trajeto real, custos e onde dormir.</p></div></section><section className="rp-section"><Link className="button button-primary" href="/rotas/">Ver os roteiros percorridos →</Link></section></PortalPage>;
   const maturity = routeMaturity[route.maturity];
   const planner = plannerHref(route.cities);
-  const related = curatedRoutes.filter((item) => item.slug !== route.slug && (item.region === route.region || routeModuleLabel(item.module) === routeModuleLabel(route.module))).slice(0, 3);
+  const related = publishedRoutes.filter((item) => item.slug !== route.slug && (item.region === route.region || routeModuleLabel(item.module) === routeModuleLabel(route.module))).slice(0, 3);
   const emergencyEntries = Object.entries(route.emergency);
   const infrastructureEntries = Object.entries(route.infrastructure);
   const compatibilityEntries = Object.entries(route.compatibility);
@@ -80,7 +85,7 @@ export default async function RouteDetailPage({ params }: { params: Promise<{ sl
   return <PortalPage className="route-detail-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(routeSchema) }} />
     <section className={`route-detail-hero ${route.maturity}`}>
-      <div><Link href="/rotas">← Todas as rotas</Link><p>{routeModuleLabel(route.module)} · {route.seal}</p><h1>{route.title}</h1><strong>{route.subtitle}</strong><span className={`route-maturity ${route.maturity}`}>{maturity.symbol} {maturity.label}</span></div>
+      <div><Link href="/rotas/">← Todos os roteiros</Link><p>{routeModuleLabel(route.module)} · {route.seal}</p><h1>{route.title}</h1><strong>{route.subtitle}</strong><span className={`route-maturity ${route.maturity}`}>{maturity.symbol} {maturity.label}</span></div>
       <aside><span><small>DURAÇÃO</small><b>{route.duration}</b></span><span><small>NÍVEL</small><b>{route.level}</b></span><span><small>MELHOR ÉPOCA</small><b>{route.bestSeason}</b></span>{route.score !== null && <span><small>LEITURA TÉCNICA</small><b>{route.score}/100</b></span>}</aside>
     </section>
 

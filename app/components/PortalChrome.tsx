@@ -1,28 +1,31 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import MobileNavigation from "./MobileNavigation";
+import { CONTACT_EMAIL, mailto } from "../site-config";
+
+export const mainNavigation = [
+  { href: "/comecar/", label: "Comece aqui" },
+  { href: "/destinos/", label: "Destinos" },
+  { href: "/rotas/", label: "Roteiros" },
+  { href: "/diario/", label: "Diário de estrada" },
+  { href: "/ferramentas/", label: "Ferramentas" },
+  { href: "/sobre/", label: "Sobre" },
+];
 
 export function PortalHeader() {
   return (
     <>
       <div className="utility-bar">
-        <span>Conhecimento, liberdade e vida sobre rodas.</span>
-        <div><Link href="/autor">Blog do Autor</Link><Link href="/sobre">Sobre o projeto</Link><a href="mailto:admin@rotaplena.com.br">Contato</a></div>
+        <span>A estrada começa perto. Eu fui antes, e te mostro como.</span>
+        <div><Link href="/mapa/">Lugares por onde passei</Link><Link href="/sobre/#newsletter">Receber por e-mail</Link><a href={mailto("Contato pelo site")}>Contato</a></div>
       </div>
       <header className="portal-header">
         <Link className="portal-brand" href="/" aria-label="Rota Plena — início">
           <img src="/rota-plena-logo-320.webp" alt="Logotipo Rota Plena" width="50" height="50" />
-          <span><b>Rota Plena</b><small>Portal do caravanismo brasileiro</small></span>
+          <span><b>Rota Plena</b><small>Viajar perto, viver pleno</small></span>
         </Link>
         <nav aria-label="Navegação principal">
-          <Link href="/comecar">Comece aqui</Link>
-          <Link href="/mapa">Mapa</Link>
-          <Link href="/rotas">Rotas</Link>
-          <Link href="/planejar">Planejar</Link>
-          <Link href="/aprenda">Aprenda</Link>
-          <Link href="/noticias">Notícias</Link>
-          <Link href="/ferramentas">Ferramentas</Link>
-          <Link href="/comunidade">Comunidade</Link>
+          {mainNavigation.map((item) => <Link key={item.href} href={item.href}>{item.label}</Link>)}
         </nav>
         <MobileNavigation />
       </header>
@@ -37,15 +40,15 @@ export function PortalFooter() {
         <div className="footer-about">
           <Link className="portal-brand footer-logo" href="/">
             <img src="/rota-plena-logo-320.webp" alt="Logotipo Rota Plena" width="45" height="45" loading="lazy" />
-            <span><b>Rota Plena</b><small>Conhecimento, liberdade e vida sobre rodas.</small></span>
+            <span><b>Rota Plena</b><small>Viajar perto, viver pleno.</small></span>
           </Link>
-          <p>Um portal brasileiro que começa perto, aprende na prática e transforma cada experiência em referência para viajar com mais segurança, autonomia e liberdade.</p>
+          <p>O guia de quem quer começar a viver a estrada perto de casa, com o carro que já tem. Feito por Sávio Antonio Americano, a partir de Taubaté, com lugares e relatos de quem esteve lá.</p>
         </div>
-        <div><b>Primeiros passos</b><Link href="/comecar">Comece por aqui</Link><Link href="/planejar">Primeira viagem</Link><Link href="/ferramentas">Checklist e ferramentas</Link><Link href="/guia-do-mapa">Como usar o mapa</Link><Link href="/destinos/vale-do-paraiba">Vale do Paraíba</Link><Link href="/destinos/sul-de-minas">Mantiqueira e Sul de Minas</Link><Link href="/mapa">Mapa de apoio</Link><Link href="/rotas">Biblioteca de rotas</Link></div>
-        <div><b>Conteúdo</b><Link href="/noticias">Notícias & Estrada</Link><Link href="/autor">Blog do Autor</Link><Link href="/blog">Revista Rota Plena</Link><Link href="/aprenda">Guias práticos</Link><Link href="/diarios">Diários públicos</Link><Link href="/comunidade">Comunidade</Link></div>
-        <div><b>Rota Plena</b><Link href="/sobre">Sobre</Link><a href="mailto:admin@rotaplena.com.br">Contato</a><Link href="/sobre#principios">Princípios editoriais</Link><Link href="/creditos-visuais">Créditos visuais</Link><Link href="/privacidade">Privacidade e LGPD</Link><Link href="/termos">Termos de Uso</Link></div>
+        <div><b>Começar</b><Link href="/comecar/">Comece aqui</Link><Link href="/comecar/#guias">Guias práticos</Link><Link href="/ferramentas/">Checklist e ferramentas</Link><Link href="/planejar/">Planejador de rotas</Link></div>
+        <div><b>Estrada</b><Link href="/destinos/">Destinos</Link><Link href="/destinos/vale-do-paraiba/">Vale do Paraíba</Link><Link href="/destinos/sul-de-minas/">Mantiqueira e Sul de Minas</Link><Link href="/rotas/">Roteiros</Link><Link href="/mapa/">Lugares por onde passei</Link><Link href="/diario/">Diário de estrada</Link></div>
+        <div><b>Rota Plena</b><Link href="/sobre/">Sobre</Link><Link href="/sobre/#historia">Mande sua história</Link><a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a><Link href="/creditos-visuais/">Créditos visuais</Link><Link href="/privacidade/">Privacidade e LGPD</Link><Link href="/termos/">Termos de Uso</Link></div>
       </div>
-      <div className="portal-footer-bottom"><span>© 2026 Rota Plena — Sávio Antonio Americano · Taubaté, SP</span><span>Informação para viajar com responsabilidade.</span></div>
+      <div className="portal-footer-bottom"><span>© 2026 Rota Plena — Sávio Antonio Americano · Taubaté, SP</span><span>Lugares visitados, informação com data, sem anúncios.</span></div>
     </footer>
   );
 }

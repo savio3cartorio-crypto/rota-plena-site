@@ -96,7 +96,7 @@ export default function ValeCityDirectory({ area = "vale" }: { area?: "vale" | "
   const [mapPlaces, setMapPlaces] = useState<MapPlace[]>([]);
 
   useEffect(() => {
-    fetch("/pontos-da-rota.csv")
+    fetch("/lugares-visitados.csv")
       .then((response) => response.text())
       .then((csv) => {
         const parsed = Papa.parse<MapPlace>(csv, { header: true, skipEmptyLines: true });
@@ -166,7 +166,7 @@ export default function ValeCityDirectory({ area = "vale" }: { area?: "vale" | "
             <footer className="vale-city-sources">
               <div><b>Fontes consultadas</b><span>Horários, preços, acesso e datas podem mudar. Confirme diretamente antes da viagem.</span></div>
               <nav>{city.sources.map((source) => <a key={source.url} href={source.url} target="_blank" rel="noreferrer">{source.label} ↗</a>)}</nav>
-              <Link href="mailto:admin@rotaplena.com.br?subject=Rota%20Plena%20-%20sugest%C3%A3o%20de%20atualiza%C3%A7%C3%A3o">Sugerir atualização →</Link>
+              <Link href="mailto:savio@rotaplena.com.br?subject=Rota%20Plena%20-%20sugest%C3%A3o%20de%20atualiza%C3%A7%C3%A3o">Sugerir atualização →</Link>
             </footer>
           </div>}
         </article>;

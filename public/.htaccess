@@ -9,6 +9,19 @@ RewriteCond %{HTTPS} off
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+# Endereços antigos (reestruturação de 25/10/2026)
+RewriteRule ^noticias(/.*)?$ /diario/ [R=301,L]
+RewriteRule ^comunidade/?$ /sobre/#historia [R=301,NE,L]
+RewriteRule ^depoimentos/?$ /sobre/#historia [R=301,NE,L]
+RewriteRule ^aprenda/?$ /comecar/#guias [R=301,NE,L]
+RewriteRule ^blog/?$ /comecar/#guias [R=301,NE,L]
+RewriteRule ^autor/?$ /diario/ [R=301,L]
+RewriteRule ^diarios/?$ /diario/ [R=301,L]
+RewriteRule ^guia-do-mapa/?$ /mapa/ [R=301,L]
+RewriteRule ^(membros|admin|paginas)(/.*)?$ / [R=301,L]
+# Roteiros ainda não percorridos voltam para a lista (302: podem voltar ao ar depois)
+RewriteCond %{DOCUMENT_ROOT}/rotas/$1 !-d
+RewriteRule ^rotas/([^/]+)/?$ /rotas/ [R=302,L]
 ErrorDocument 404 /404.html
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"

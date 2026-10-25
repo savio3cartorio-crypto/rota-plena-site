@@ -5,21 +5,14 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const menuLinks = [
-  { href: "/comecar", label: "Comece por aqui", icon: "①" },
-  { href: "/mapa", label: "Mapa de apoio", icon: "⌖" },
-  { href: "/guia-do-mapa", label: "Como usar o mapa", icon: "?" },
-  { href: "/rotas", label: "Rotas e roteiros", icon: "↟" },
-  { href: "/planejar", label: "Planejar viagem", icon: "↝" },
-  { href: "/destinos/vale-do-paraiba", label: "Guia do Vale do Paraíba", icon: "◈" },
-  { href: "/destinos/sul-de-minas", label: "Sul de Minas e Mantiqueira", icon: "⌁" },
-  { href: "/aprenda", label: "Aprenda", icon: "▤" },
-  { href: "/noticias", label: "Notícias & Estrada", icon: "◉" },
-  { href: "/ferramentas", label: "Ferramentas", icon: "✓" },
-  { href: "/blog", label: "Blog e revista", icon: "◇" },
-  { href: "/autor", label: "Blog do Autor", icon: "✦" },
-  { href: "/comunidade", label: "Comunidade", icon: "◎" },
-  { href: "/diarios", label: "Diários públicos", icon: "☷" },
-  { href: "/sobre", label: "Sobre o Rota Plena", icon: "○" },
+  { href: "/comecar/", label: "Comece aqui", icon: "①" },
+  { href: "/destinos/", label: "Destinos", icon: "◈" },
+  { href: "/rotas/", label: "Roteiros", icon: "↟" },
+  { href: "/diario/", label: "Diário de estrada", icon: "✎" },
+  { href: "/mapa/", label: "Lugares por onde passei", icon: "⌖" },
+  { href: "/ferramentas/", label: "Ferramentas", icon: "✓" },
+  { href: "/planejar/", label: "Planejador de rotas", icon: "↝" },
+  { href: "/sobre/", label: "Sobre e contato", icon: "○" },
 ];
 
 export default function MobileNavigation() {
@@ -56,7 +49,7 @@ export default function MobileNavigation() {
         </div>
         <nav aria-label="Navegação móvel">
           {menuLinks.map((item) => (
-            <Link key={item.href} href={item.href} className={pathname === item.href ? "active" : ""} onClick={() => setOpen(false)}>
+            <Link key={item.href} href={item.href} className={pathname === item.href || pathname === item.href.replace(/\/$/, "") ? "active" : ""} onClick={() => setOpen(false)}>
               <span aria-hidden="true">{item.icon}</span>
               <b>{item.label}</b>
               <i aria-hidden="true">→</i>
@@ -71,9 +64,9 @@ export default function MobileNavigation() {
 
       <nav className="mobile-bottom-nav" aria-label="Atalhos principais">
         <Link href="/" className={pathname === "/" ? "active" : ""}><span aria-hidden="true">⌂</span><b>Início</b></Link>
-        <Link href="/mapa" className={pathname === "/mapa" ? "active" : ""}><span aria-hidden="true">⌖</span><b>Mapa</b></Link>
-        <Link href="/planejar" className={pathname === "/planejar" ? "active" : ""}><span aria-hidden="true">↝</span><b>Planejar</b></Link>
-        <Link href="/comecar" className={pathname === "/comecar" ? "active" : ""}><span aria-hidden="true">①</span><b>Começar</b></Link>
+        <Link href="/comecar/" className={pathname.startsWith("/comecar") ? "active" : ""}><span aria-hidden="true">①</span><b>Começar</b></Link>
+        <Link href="/destinos/" className={pathname.startsWith("/destinos") ? "active" : ""}><span aria-hidden="true">◈</span><b>Destinos</b></Link>
+        <Link href="/diario/" className={pathname.startsWith("/diario") ? "active" : ""}><span aria-hidden="true">✎</span><b>Diário</b></Link>
         <button type="button" className={open ? "active" : ""} onClick={() => setOpen((current) => !current)} aria-expanded={open}>
           <span aria-hidden="true">☰</span><b>Menu</b>
         </button>

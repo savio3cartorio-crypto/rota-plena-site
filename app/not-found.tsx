@@ -20,9 +20,9 @@ export default function NotFound() {
       <section className="portal-inner">
         <nav style={{ display: "flex", flexWrap: "wrap", gap: 12, padding: "40px 0" }}>
           <Link className="button button-primary" href="/">Voltar ao início</Link>
-          <Link className="button button-primary" href="/mapa/">Abrir o mapa</Link>
-          <Link className="button button-primary" href="/rotas/">Ver as rotas</Link>
-          <Link className="button button-primary" href="/blog/">Ler a revista</Link>
+          <Link className="button button-primary" href="/comecar/">Comece aqui</Link>
+          <Link className="button button-primary" href="/destinos/">Destinos</Link>
+          <Link className="button button-primary" href="/diario/">Diário de estrada</Link>
         </nav>
       </section>
     </PortalPage>

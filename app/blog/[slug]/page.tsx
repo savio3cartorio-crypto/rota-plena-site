@@ -5,6 +5,7 @@ import { PortalPage } from "../../components/PortalChrome";
 import { getPublishedArticles } from "../../../db/cms";
 import { absoluteUrl } from "../../site-config";
 import { FormattedArticleText } from "../../components/FormattedArticleText";
+import { isCronica } from "../../data/editorial";
 
 
 export const dynamicParams = false;
@@ -40,7 +41,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   const seriesIndex = seriesArticles.findIndex((item) => item.slug === article.slug);
   const previousArticle = seriesIndex > 0 ? seriesArticles[seriesIndex - 1] : undefined;
   const nextArticle = seriesIndex >= 0 && seriesIndex < seriesArticles.length - 1 ? seriesArticles[seriesIndex + 1] : undefined;
-  const returnToAuthor = article.authorBlog || article.slug === "a-estrada-que-eu-queria-mostrar-a-clara";
+  const returnToDiary = isCronica(article.slug);
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -55,7 +56,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
   return <PortalPage>
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
     <article className="article-page">
-      <header><Link href={returnToAuthor ? "/autor" : "/blog"}>← Voltar ao {returnToAuthor ? "Blog do Autor" : "Blog"}</Link><p>{article.category}{article.series ? ` · ${article.series.name} ${String(article.series.order).padStart(2, "0")}/${article.series.total}` : ""} · {article.reading}</p><h1>{article.title}</h1><div>{article.excerpt}</div><small>Por {article.authorName || "Sávio Antonio Americano"} · {article.date}</small></header>
+      <header><Link href={returnToDiary ? "/diario/" : "/comecar/#guias"}>← {returnToDiary ? "Diário de estrada" : "Guias práticos"}</Link><p>{article.category}{article.series ? ` · ${article.series.name} ${String(article.series.order).padStart(2, "0")}/${article.series.total}` : ""} · {article.reading}</p><h1>{article.title}</h1><div>{article.excerpt}</div><small>Por {article.authorName || "Sávio Antonio Americano"} · {article.date}</small></header>
       <div className="article-cover" role="img" aria-label={`Imagem de capa: ${article.title}`} style={{ backgroundPosition: article.imagePosition, backgroundImage: article.coverUrl ? `url("${article.coverUrl}")` : undefined }} />
       <div className="article-body">
         {article.content.map((section, index) => <section key={index} className={section.heading === "Dica Rota Plena" ? "article-tip" : undefined}>{section.heading && <h2><FormattedArticleText text={section.heading} /></h2>}{section.paragraphs.map((paragraph, paragraphIndex) => <p key={`${index}-${paragraphIndex}`}><FormattedArticleText text={paragraph} /></p>)}{section.image && <figure className="article-inline-image"><img src={section.image.src} alt={section.image.alt} loading="lazy" />{section.image.caption && <figcaption>{section.image.caption}</figcaption>}</figure>}</section>)}
@@ -64,7 +65,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             <p>CONTINUE SUA ROTA</p>
             <h2>Da inspiração ao primeiro fim de semana.</h2>
             <div>
-              <Link href="/mapa?busca=camping"><span>01</span><b>Encontrar campings e apoios</b><small>Explore pontos cadastrados e confirme as condições.</small></Link>
+              <Link href="/destinos/"><span>01</span><b>Escolher um destino perto</b><small>Vale do Paraíba, Mantiqueira e Litoral Norte.</small></Link>
               <Link href="/planejar"><span>02</span><b>Planejar a primeira rota</b><small>Organize ritmo, paradas, custos e alternativas.</small></Link>
               <Link href="/ferramentas"><span>03</span><b>Preparar o carro</b><small>Use checklist, autonomia e ficha de pernoite.</small></Link>
             </div>
@@ -108,7 +109,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           <header><span>SÉRIE EDITORIAL</span><b>{article.series.name}</b><small>Matéria {String(article.series.order).padStart(2, "0")} de {article.series.total}</small></header>
           <div>
             {previousArticle ? <Link href={`/blog/${previousArticle.slug}`} className="previous"><small>← Matéria anterior</small><b>{previousArticle.title}</b></Link> : <span className="series-edge"><small>Você está no começo</small><b>O sonho começa por aqui.</b></span>}
-            {nextArticle ? <Link href={`/blog/${nextArticle.slug}`} className="next"><small>Próxima matéria →</small><b>{nextArticle.title}</b></Link> : <Link href="/autor" className="next"><small>Série concluída</small><b>Voltar ao Blog do Autor →</b></Link>}
+            {nextArticle ? <Link href={`/blog/${nextArticle.slug}`} className="next"><small>Próxima matéria →</small><b>{nextArticle.title}</b></Link> : <Link href="/comecar/#guias" className="next"><small>Série concluída</small><b>Voltar aos guias →</b></Link>}
           </div>
         </nav>}
         {article.slug === "a-estrada-que-eu-queria-mostrar-a-clara" ? <aside><b>Sobre este relato</b><p>Uma experiência pessoal de Sávio Americano e sua família, preservada como memória de estrada e parte da origem do projeto Rota Plena.</p></aside> : <aside><b>Nota editorial Rota Plena</b><p>Conteúdo de segurança e manutenção deve ser conferido com o fabricante, profissional habilitado ou fonte oficial aplicável ao seu veículo e à sua viagem.</p></aside>}
