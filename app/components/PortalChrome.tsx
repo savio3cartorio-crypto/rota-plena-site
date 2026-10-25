@@ -21,7 +21,7 @@ export function PortalHeader() {
       </div>
       <header className="portal-header">
         <Link className="portal-brand" href="/" aria-label="Rota Plena — início">
-          <img src="/rota-plena-logo-320.webp" alt="Logotipo Rota Plena" width="50" height="50" />
+          <img src="/rota-plena-marca.svg" alt="" width="46" height="46" />
           <span><b>Rota Plena</b><small>Viajar perto, viver pleno</small></span>
         </Link>
         <nav aria-label="Navegação principal">

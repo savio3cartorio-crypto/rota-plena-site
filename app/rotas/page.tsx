@@ -20,7 +20,7 @@ export default async function RoutesPage() {
       <aside><span><b>{1 + publishedRoutes.length}</b> {publishedRoutes.length ? "roteiros percorridos" : "roteiro percorrido"}</span><span><b>100%</b> com estrada real</span><span><b>0</b> roteiros de escritório</span></aside>
     </section>
 
-    <section className="route-phase-banner"><div><small>ROTEIRO PERCORRIDO · JANEIRO DE 2024</small><b>Taubaté → Vitória → Caraíva (BA)</b><span>Dois dias de estrada em família até a vila onde o rio encontra o mar, contados capítulo a capítulo no Diário de estrada.</span></div><nav>{caraiva.map((entry, index) => <Link key={entry.id} href={`/diarios/${entry.id}/`}>Dia {index + 1}</Link>)}</nav></section>
+    <section className="route-phase-banner"><div><span className="rp-selo">Eu fui <small>janeiro de 2024</small></span><b>Taubaté → Vitória → Caraíva (BA)</b><span>Dois dias de estrada em família até a vila onde o rio encontra o mar, contados capítulo a capítulo no Diário de estrada.</span></div><nav>{caraiva.map((entry, index) => <Link key={entry.id} href={`/diarios/${entry.id}/`}>Dia {index + 1}</Link>)}</nav></section>
 
     {publishedRoutes.length > 0
       ? <RouteCatalog routes={publishedRoutes} />

@@ -13,5 +13,5 @@ export default function CookieNotice() {
     window.localStorage.setItem("rota-plena-cookie-choice", value);
     setVisible(false);
   }
-  return <aside className="cookie-notice" aria-label="Preferências de privacidade"><div><b>Sua privacidade no caminho</b><p>O Rota Plena não usa cookies de rastreamento. O navegador guarda apenas, no seu aparelho, este aviso, o checklist e pesquisas recentes do planejador.</p><Link href="/privacidade">Política de Privacidade</Link></div><div><button className="accept" onClick={() => choose("essential")}>Entendi</button></div></aside>;
+  return <aside className="cookie-notice" aria-label="Preferências de privacidade"><div><p>Sem cookies de rastreamento: o navegador guarda só suas preferências neste aparelho. <Link href="/privacidade/">Saiba mais</Link></p></div><div><button className="accept" onClick={() => choose("essential")}>Entendi</button></div></aside>;
 }

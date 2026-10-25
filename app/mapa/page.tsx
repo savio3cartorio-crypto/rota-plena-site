@@ -13,7 +13,7 @@ export default function MapaPage() {
   return <PortalPage className="map-page">
     <section className="map-page-head"><div><p className="eyebrow dark">SELO “EU FUI”</p><h1>Só entra neste mapa o lugar por onde eu passei.</h1></div><div className="map-page-intro"><p>Em vez de milhares de pontos copiados de outros guias, um mapa menor e honesto: cidades, parques, cachoeiras, mirantes e paradas que visitei. Condições mudam com o tempo; confirme funcionamento e acesso antes de seguir.</p><Link href="/destinos/">Ver os destinos da região →</Link></div></section>
     <section className="map-insight-strip" aria-label="O que este mapa mostra">
-      <div><small>MAPA PESSOAL</small><b>Lugares visitados</b><span>Do Vale do Paraíba e da Mantiqueira a outras estradas do Brasil.</span></div>
+      <div><span className="rp-selo dark">Eu fui</span><b>Lugares visitados</b><span>Do Vale do Paraíba e da Mantiqueira a outras estradas do Brasil.</span></div>
       <article><b>183</b><span>lugares com selo “eu fui”</span></article>
       <article><b>0</b><span>pontos copiados de outros guias</span></article>
       <article><b>1</b><span>pessoa conferindo tudo</span></article>

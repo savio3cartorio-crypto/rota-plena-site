@@ -20,13 +20,13 @@ export const metadata: Metadata = {
     title: "Rota Plena — A estrada começa perto",
     description: SITE_DESCRIPTION,
     url: SITE_URL,
-    images: [{ url: "/rota-plena-hero.jpg", width: 1536, height: 1024, alt: "Rota Plena — a estrada começa perto" }],
+    images: [{ url: "/assets/visual/caraiva-estrada-liberdade-capa.jpg", width: 1600, height: 900, alt: "Nascer do sol na estrada, visto de dentro do carro, a caminho de Caraíva" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Rota Plena — A estrada começa perto",
     description: SITE_DESCRIPTION,
-    images: ["/rota-plena-hero.jpg"],
+    images: ["/assets/visual/caraiva-estrada-liberdade-capa.jpg"],
   },
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 } },
   icons: {

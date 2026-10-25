@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Rota Plena">
+  <defs><clipPath id="c"><circle cx="32" cy="32" r="30"/></clipPath></defs>
+  <circle cx="32" cy="32" r="31" fill="#073d2a"/>
+  <g clip-path="url(#c)">
+    <circle cx="40" cy="26" r="8.5" fill="#eeb126"/>
+    <path d="M0 42 L15 29 L24 36 L35 25 L50 36 L64 30 L64 64 L0 64 Z" fill="#0d5a3d"/>
+    <path d="M0 47 L20 38 L36 44 L64 37 L64 64 L0 64 Z" fill="#14704c"/>
+    <path d="M23 64 L31 42 L33 42 L41 64 Z" fill="#f7f2e8"/>
+    <path d="M32 46 L32 49 M32 53 L32 57 M32 60 L32 64" stroke="#eeb126" stroke-width="1.6" stroke-linecap="round"/>
+  </g>
+  <circle cx="32" cy="32" r="30" fill="none" stroke="#eeb126" stroke-width="2"/>
+</svg>

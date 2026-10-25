@@ -33,7 +33,7 @@ export default async function PublicDiaryEntryPage({ params }: { params: Promise
   return <PortalPage className="public-diary-entry-page">
     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
     <article className="public-diary-entry">
-      <header><Link href="/diario/">← Diário de estrada</Link><p className="eyebrow">DIÁRIO DE BORDO · CARAÍVA 2024</p><h1>{entry.title}</h1><div><span>{formatDate(entry.tripDate)}</span><span>{entry.location}</span><span>Por {entry.authorName}</span></div></header>
+      <header><Link href="/diario/">← Diário de estrada</Link><p className="eyebrow dark">DIÁRIO DE ESTRADA · CARAÍVA 2024</p><span className="rp-selo">Eu fui <small>{formatDate(entry.tripDate)}</small></span><h1>{entry.title}</h1><div><span>{formatDate(entry.tripDate)}</span><span>{entry.location}</span><span>Por {entry.authorName}</span></div></header>
       <aside><b>Nota do autor</b><p>Este relato foi escrito em janeiro de 2024 como uma carta às minhas filhas. Para a publicação no Rota Plena, foram corrigidos apenas erros evidentes de digitação e organizadas as seções, preservando o sentido, a memória familiar e a reflexão original.</p></aside>
       <DiaryProse body={entry.body} />
       <footer><span>Boa estrada. E que ela seja plena.</span><Link href="/diario/">Continuar no Diário de estrada →</Link></footer>

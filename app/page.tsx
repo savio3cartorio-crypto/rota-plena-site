@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { PortalFooter, PortalHeader } from "./components/PortalChrome";
 import { getPublishedArticles } from "../db/cms";
 import { getPublicDiaryEntries } from "../db/diaries";
@@ -8,71 +7,65 @@ import { mailto } from "./site-config";
 
 export default async function Home() {
   const [articles, diaries] = await Promise.all([getPublishedArticles(), getPublicDiaryEntries()]);
-  const guias = primeirosPassosSlugs.slice(0, 3).map((slug) => articles.find((article) => article.slug === slug)).filter((article) => article !== undefined);
-  const cronicas = cronicaSlugs.slice(0, 2).map((slug) => articles.find((article) => article.slug === slug)).filter((article) => article !== undefined);
+  const guias = primeirosPassosSlugs.map((slug) => articles.find((article) => article.slug === slug)).filter((article) => article !== undefined);
+  const cronicas = cronicaSlugs.slice(0, 3).map((slug) => articles.find((article) => article.slug === slug)).filter((article) => article !== undefined);
   const firstDiary = [...diaries].sort((a, b) => (a.tripDate ?? "").localeCompare(b.tripDate ?? ""))[0];
 
   return (
-    <main className="portal-page phase-one-home">
+    <main className="portal-page rp-home">
       <PortalHeader />
 
-      <section className="portal-hero phase-one-hero">
-        <div className="portal-hero-content">
+      <section className="rp-hero">
+        <div className="rp-hero-content">
           <p className="eyebrow">ROTA PLENA · VIAJAR PERTO, VIVER PLENO</p>
           <h1>A estrada começa perto.<br /><em>Eu fui antes, e te mostro como.</em></h1>
-          <p>Guias para a primeira viagem com o carro que você já tem, lugares que eu visitei de verdade e relatos sobre o que a estrada ensina. Começando pelo Vale do Paraíba, pela Mantiqueira e pelo Litoral Norte.</p>
-          <div className="phase-one-actions">
+          <p>Guias para a primeira viagem com o carro que você já tem, lugares que eu visitei de verdade e relatos sobre o que a estrada ensina.</p>
+          <div className="rp-hero-actions">
             <Link className="button button-primary" href="/comecar/">Quero começar <span>→</span></Link>
             <Link className="button button-ghost" href="/diario/">Ler o Diário de estrada</Link>
           </div>
-          <div className="hero-trust"><span>• Só lugares visitados</span><span>• Informação com data</span><span>• Sem anúncios</span></div>
         </div>
-        <figure className="portal-hero-logo">
-          <Image src="/rota-plena-logo-320.webp" alt="Logotipo Rota Plena" width={320} height={320} priority unoptimized />
-        </figure>
+        <p className="rp-hero-caption"><span className="rp-selo dark">Eu fui <small>jan 2024</small></span> Nascer do sol a caminho de Caraíva, visto de dentro do carro.</p>
       </section>
 
-      <section className="rp-section">
-        <div className="portal-section-head"><div><p className="eyebrow dark">O QUE VOCÊ ENCONTRA AQUI</p><h2>Três coisas, bem feitas.</h2><p>Em vez de tentar mostrar o Brasil inteiro, o Rota Plena faz pouco e faz com cuidado.</p></div></div>
-        <div className="rp-pillars">
-          <article><span>01</span><h3>Começar perto</h3><p>Como fazer a primeira viagem com o carro que você já tem: onde dormir, o que levar, quanto custa e o que evitar.</p><Link href="/comecar/">Ver o plano de estreia →</Link></article>
-          <article><span>02</span><h3>Lugares verificados</h3><p>Cidades, campings, mirantes e paradas que eu visitei, com o selo “eu fui”. Nada copiado de outros guias.</p><Link href="/destinos/">Ver os destinos →</Link></article>
-          <article><span>03</span><h3>Estrada que transforma</h3><p>Relatos e crônicas sobre família, recomeço e liberdade depois dos 50. A estrada vista de dentro.</p><Link href="/diario/">Ler o diário →</Link></article>
-        </div>
-      </section>
-
-      <section className="first-journey-path">
-        <header>
-          <div><p className="eyebrow dark">UM PASSO DE CADA VEZ</p><h2>Do sonho à primeira noite na estrada.</h2></div>
-          <p>Uma jornada realista para quem trabalha durante a semana, tem um carro comum e quer começar sem dívidas nem equipamentos desnecessários.</p>
-        </header>
+      <section className="rp-section rp-author">
+        <div className="rp-author-mark" aria-hidden="true">SA</div>
         <div>
-          <article><span>01</span><small>ENTENDA</small><h3>Descubra seu jeito</h3><p>Leia o guia de car camping e escolha uma saída curta para testar se essa forma de viajar combina com você.</p><Link href="/blog/car-camping-liberdade-porta-malas/">Ler o guia →</Link></article>
-          <article><span>02</span><small>PREPARE</small><h3>Use o essencial</h3><p>Organize água, descanso, ventilação, alimentação e itens de segurança com o que você já tem.</p><Link href="/ferramentas/">Abrir o checklist →</Link></article>
-          <article><span>03</span><small>ESCOLHA</small><h3>Viaje perto</h3><p>Comece pelo Vale do Paraíba, pela Mantiqueira ou pelo Litoral Norte, com plano alternativo e pernoite confirmado.</p><Link href="/destinos/">Ver os destinos →</Link></article>
-          <article><span>04</span><small>CONTE</small><h3>Divida o que aprendeu</h3><p>Anote o que funcionou e o que faltou. Se quiser, mande a sua história: ela pode ajudar quem vem depois.</p><Link href="/sobre/#historia">Mandar minha história →</Link></article>
+          <p className="eyebrow dark">QUEM ESCREVE</p>
+          <p className="rp-author-text">Sou Sávio Antonio Americano, de Taubaté. Criei o Rota Plena para mostrar que viajar sobre rodas não começa com um motorhome caro: começa com o carro da garagem, uma noite perto de casa e vontade de aprender. Aqui eu conto o que testei, onde dormi, quanto gastei e o que eu faria diferente.</p>
+          <Link className="text-link" href="/sobre/">Conhecer a história do projeto →</Link>
         </div>
       </section>
 
-      <section className="rp-section alt">
-        <div className="portal-section-head"><div><p className="eyebrow dark">GUIAS PARA A PRIMEIRA VIAGEM</p><h2>Leia antes de sair.</h2></div><Link href="/comecar/#guias">Todos os guias →</Link></div>
-        <div className="rp-cards">{guias.map((article) => <Link className="rp-card" key={article.slug} href={`/blog/${article.slug}/`}><small>{article.category} · {article.reading}</small><h3>{article.title}</h3><p>{article.excerpt}</p><b>Ler o guia →</b></Link>)}</div>
+      <section className="rp-section rp-pillars-plain" aria-label="O que você encontra aqui">
+        <article><span>01</span><h2>Começar perto</h2><p>O passo a passo da primeira viagem: onde dormir, o que levar, quanto custa e o que evitar.</p><Link href="/comecar/">Ver o plano de estreia →</Link></article>
+        <article><span>02</span><h2>Lugares verificados</h2><p>Cidades, campings, mirantes e paradas com o selo “eu fui”. Nada copiado de outros guias.</p><Link href="/destinos/">Ver os destinos →</Link></article>
+        <article><span>03</span><h2>Estrada que transforma</h2><p>Relatos e crônicas sobre família, recomeço e liberdade depois dos 50.</p><Link href="/diario/">Ler o diário →</Link></article>
       </section>
+
+      {firstDiary && <section className="rp-feature">
+        <div className="rp-feature-photo" role="img" aria-label="Fim de tarde no rio Caraíva, com barcos sobre a água" />
+        <div className="rp-feature-copy">
+          <p className="eyebrow dark">DO DIÁRIO DE ESTRADA</p>
+          <span className="rp-selo">Eu fui <small>janeiro de 2024</small></span>
+          <h2>Dois dias de estrada até onde o rio encontra o mar.</h2>
+          <p>De Taubaté a Caraíva, na Bahia, em família: 679 km no primeiro dia, a parada em Vitória e a chegada à vila. Escrito como cartas às filhas.</p>
+          <Link className="button button-primary" href={`/diarios/${firstDiary.id}/`}>Ler o primeiro capítulo →</Link>
+          <ul className="rp-mini-list">{cronicas.map((article) => <li key={article.slug}><Link href={`/blog/${article.slug}/`}>{article.title}</Link><small>Crônica · {article.reading}</small></li>)}</ul>
+        </div>
+      </section>}
 
       <section className="rp-section">
-        <div className="portal-section-head"><div><p className="eyebrow dark">DIÁRIO DE ESTRADA</p><h2>A estrada também muda quem viaja.</h2></div><Link href="/diario/">Ler o diário →</Link></div>
-        <div className="rp-cards">
-          {firstDiary && <Link className="rp-card" href={`/diarios/${firstDiary.id}/`}><small>Relato · {firstDiary.location}</small><h3>{firstDiary.title}</h3><p>Uma viagem em família até Caraíva, escrita como cartas às filhas.</p><b>Ler o relato →</b></Link>}
-          {cronicas.map((article) => <Link className="rp-card" key={article.slug} href={`/blog/${article.slug}/`}><small>Crônica · {article.reading}</small><h3>{article.title}</h3><p>{article.excerpt}</p><b>Ler a crônica →</b></Link>)}
-        </div>
+        <div className="portal-section-head"><div><p className="eyebrow dark">GUIAS PARA A PRIMEIRA VIAGEM</p><h2>Leia antes de sair.</h2></div><Link href="/comecar/#guias">Todos os guias →</Link></div>
+        <ol className="rp-list">{guias.map((article) => <li key={article.slug}><Link href={`/blog/${article.slug}/`}><small>{article.category}</small><b>{article.title}</b><span>{article.reading} de leitura →</span></Link></li>)}</ol>
       </section>
 
       <section className="rp-section alt">
         <div className="portal-section-head"><div><p className="eyebrow dark">DESTINOS</p><h2>Perto o bastante para voltar no mesmo dia.</h2></div><Link href="/mapa/">Lugares por onde passei →</Link></div>
-        <div className="rp-cards">
-          <Link className="rp-card" href="/destinos/vale-do-paraiba/"><small>Base do projeto</small><h3>Vale do Paraíba</h3><p>Taubaté e as cidades do Vale, com as portas de subida para a serra e para o mar.</p><b>Abrir o guia →</b></Link>
-          <Link className="rp-card" href="/destinos/sul-de-minas/"><small>Serra e interior</small><h3>Mantiqueira e Sul de Minas</h3><p>Montanha, frio e pequenas cidades entre São Paulo e Minas Gerais.</p><b>Abrir o guia →</b></Link>
-          <div className="rp-card muted"><small>Em preparação</small><h3>Litoral Norte</h3><p>Ubatuba, Caraguatatuba, São Sebastião e Ilhabela, depois das próximas saídas de campo.</p><b>Em breve</b></div>
+        <div className="rp-tiles">
+          <Link className="rp-tile photo" href="/destinos/sul-de-minas/"><small>Serra e interior</small><h3>Mantiqueira e Sul de Minas</h3><span>Abrir o guia →</span></Link>
+          <Link className="rp-tile" href="/destinos/vale-do-paraiba/"><small>Base do projeto</small><h3>Vale do Paraíba</h3><span>Abrir o guia →</span></Link>
+          <div className="rp-tile muted"><small>Em preparação</small><h3>Litoral Norte</h3><span>Depois das próximas saídas de campo</span></div>
         </div>
       </section>
 
