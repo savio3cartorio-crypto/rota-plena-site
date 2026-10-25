@@ -1,0 +1,5 @@
+User-Agent: *
+Allow: /
+
+Host: https://rotaplena.com.br/
+Sitemap: https://rotaplena.com.br/sitemap.xml
