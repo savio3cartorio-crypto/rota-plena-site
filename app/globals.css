@@ -455,3 +455,6 @@ a.rp-card:hover{border-color:#c9b172;box-shadow:0 10px 26px rgba(4,41,30,.08)}
 .rp-tile span{font-size:15px;color:#e1ebe3}
 .rp-tile.muted span{color:#5f6a62}
 @media(max-width:860px){.rp-hero{min-height:auto;padding:64px 20px 96px}.rp-hero-caption{left:20px;right:20px;justify-content:flex-start;text-align:left;font-size:12.5px;flex-wrap:wrap}.rp-author{grid-template-columns:1fr;gap:18px}.rp-author-mark{width:84px;height:84px;font-size:28px}.rp-pillars-plain{grid-template-columns:1fr;gap:26px}.rp-feature{grid-template-columns:1fr}.rp-feature-photo{min-height:240px}.rp-list a{grid-template-columns:1fr;gap:6px}.rp-tiles{grid-template-columns:1fr}.rp-tile{min-height:200px}.rp-mini-list li{flex-direction:column;gap:2px}}
+/* Espaço entre parágrafos dos artigos */
+.article-body section p{margin:0 0 20px}
+.article-body aside p{font-size:14px}

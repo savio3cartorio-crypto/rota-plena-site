@@ -44,7 +44,7 @@ export function parseArticleBody(body: string): Article["content"] {
   return sections.length ? sections : [{ paragraphs: [body] }];
 }
 
-type CmsRaw = { slug:string; title:string; excerpt:string; body:string; category:string; cover_key:string|null; author_name:string; reading_minutes:number; featured:number; published_at:number|null; updated_at:number };
+type CmsRaw = { slug:string; title:string; excerpt:string; body:string; category:string; cover_key:string|null; cover_url?:string|null; author_name:string; reading_minutes:number; featured:number; published_at:number|null; updated_at:number };
 
 export async function getPublishedArticles(): Promise<Article[]> {
   const rows = (cmsArticles as CmsRaw[]).slice().sort((a, b) => (b.featured - a.featured) || ((b.published_at ?? 0) - (a.published_at ?? 0)) || (b.updated_at - a.updated_at));
@@ -63,7 +63,7 @@ export async function getPublishedArticles(): Promise<Article[]> {
       date: new Date(row.published_at || row.updated_at).toLocaleDateString("pt-BR", { day: "2-digit", month: "long", year: "numeric" }),
       reading: `${row.reading_minutes || 5} min`,
       imagePosition: sourceArticle?.imagePosition ?? "center 55%",
-      coverUrl: sourceArticle?.coverUrl,
+      coverUrl: row.cover_url ?? sourceArticle?.coverUrl,
       authorName: row.author_name,
       authorBlog: sourceArticle?.authorBlog,
       featured: Boolean(row.featured),

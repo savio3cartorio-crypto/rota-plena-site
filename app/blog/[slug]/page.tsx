@@ -112,7 +112,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
             {nextArticle ? <Link href={`/blog/${nextArticle.slug}`} className="next"><small>Próxima matéria →</small><b>{nextArticle.title}</b></Link> : <Link href="/comecar/#guias" className="next"><small>Série concluída</small><b>Voltar aos guias →</b></Link>}
           </div>
         </nav>}
-        {article.slug === "a-estrada-que-eu-queria-mostrar-a-clara" ? <aside><b>Sobre este relato</b><p>Uma experiência pessoal de Sávio Americano e sua família, preservada como memória de estrada e parte da origem do projeto Rota Plena.</p></aside> : <aside><b>Nota editorial Rota Plena</b><p>Conteúdo de segurança e manutenção deve ser conferido com o fabricante, profissional habilitado ou fonte oficial aplicável ao seu veículo e à sua viagem.</p></aside>}
+        {article.slug === "a-estrada-que-eu-queria-mostrar-a-clara" ? <aside><b>Sobre este relato</b><p>Uma experiência pessoal de Sávio Americano e sua família, preservada como memória de estrada e parte da origem do projeto Rota Plena.</p></aside> : returnToDiary ? <aside><b>Diário de estrada</b><p>Uma crônica de Sávio Antonio Americano. Tem uma história de estrada para contar? <a href="/sobre/#historia">Mande a sua</a>.</p></aside> : <aside><b>Nota editorial Rota Plena</b><p>Conteúdo de segurança e manutenção deve ser conferido com o fabricante, profissional habilitado ou fonte oficial aplicável ao seu veículo e à sua viagem.</p></aside>}
       </div>
     </article>
   </PortalPage>;
